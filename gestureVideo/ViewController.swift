@@ -7,21 +7,32 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController{
     
-   
-    
+    @IBOutlet var videoView: UIView!
+    var player : AVPlayer!
+    var playerLayer : AVPlayerLayer!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
+        player = AVPlayer(url: url)
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resize
+        
+        videoView.layer.addSublayer(playerLayer)
+        
         // Do any additional setup after loading the view, typically from a nib.
-       
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        player.play()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        playerLayer.frame = videoView.frame
     }
 
 
