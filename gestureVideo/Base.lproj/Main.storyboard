@@ -104,6 +104,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Ssy-A6-SD7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3s9-8d-PeP"/>
                             <constraint firstItem="ERf-sA-v5T" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Hbl-26-o1h"/>
@@ -119,9 +120,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomConst" destination="Ol2-Mu-AHU" id="teO-gQ-4iU"/>
+                        <outlet property="bottomView" destination="ERf-sA-v5T" id="mAT-LQ-IRg"/>
                         <outlet property="currentLbl" destination="ja5-Oz-1OG" id="V5M-On-kfX"/>
                         <outlet property="durationLbl" destination="fEm-am-fcC" id="LDU-ib-CdO"/>
                         <outlet property="timeSlider" destination="7s3-DY-DpL" id="WQe-HK-nzA"/>
+                        <outlet property="topConst" destination="ozh-rM-ama" id="n0E-bV-I2C"/>
+                        <outlet property="topView" destination="an7-7p-uVi" id="fCU-jv-Qfb"/>
                         <outlet property="videoView" destination="Ssy-A6-SD7" id="LWk-Ux-thi"/>
                     </connections>
                 </viewController>

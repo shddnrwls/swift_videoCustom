@@ -11,16 +11,22 @@ import AVFoundation
 
 class ViewController: UIViewController{
     
+    @IBOutlet var topView: UIView!
+    @IBOutlet var bottomView: UIView!
     @IBOutlet var videoView: UIView!
     @IBOutlet var durationLbl: UILabel!
     @IBOutlet var currentLbl: UILabel!
     @IBOutlet var timeSlider: UISlider!
+    @IBOutlet var bottomConst: NSLayoutConstraint!
+    @IBOutlet var topConst: NSLayoutConstraint!
     var player : AVPlayer!
     var playerLayer : AVPlayerLayer!
     var isVideoPlayer = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        topConst.constant = -66
+        bottomConst.constant = 60
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
         
         player = AVPlayer(url: url)
@@ -30,10 +36,24 @@ class ViewController: UIViewController{
         playerLayer.videoGravity = .resize
         
         videoView.layer.addSublayer(playerLayer)
+        videoView.addGestureRecognizer(tapGesture)
+        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         playerLayer.frame = videoView.frame
+    }
+    @objc func tapGesture(){
+        if topConst.constant < 0 && bottomConst.constant > 0
+        {
+            topConst.constant = 0
+            bottomConst.constant = 0
+        }
+        else{
+            topConst.constant = -66
+            bottomConst.constant = 60
+        }
+        
     }
 
     @IBAction func playAction(_ sender: UIButton) {
