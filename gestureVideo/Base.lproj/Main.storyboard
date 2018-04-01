@@ -15,7 +15,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="gestureVideo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -30,21 +30,21 @@
                                 <rect key="frame" x="0.0" y="718" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moH-Vb-H8B">
-                                        <rect key="frame" x="172" y="15" width="30" height="30"/>
+                                        <rect key="frame" x="172.33333333333334" y="15" width="30" height="30"/>
                                         <state key="normal" title="Play"/>
                                         <connections>
                                             <action selector="playAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tdf-jq-p5c"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFl-uc-uKN">
-                                        <rect key="frame" x="218" y="15" width="42" height="30"/>
+                                        <rect key="frame" x="218.33333333333334" y="15" width="42.000000000000028" height="30"/>
                                         <state key="normal" title="10초후"/>
                                         <connections>
                                             <action selector="forwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ngG-Ol-ulh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrp-h6-z7J">
-                                        <rect key="frame" x="114" y="15" width="42" height="30"/>
+                                        <rect key="frame" x="114.33333333333331" y="15" width="42" height="30"/>
                                         <state key="normal" title="10초전"/>
                                         <connections>
                                             <action selector="backwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="82d-ze-qGl"/>
@@ -118,6 +118,9 @@
                             <constraint firstItem="ERf-sA-v5T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xig-bX-x2G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lhb-gE-gOB" appends="YES" id="tpa-mB-vnG"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="bottomConst" destination="Ol2-Mu-AHU" id="teO-gQ-4iU"/>
@@ -131,6 +134,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="lhb-gE-gOB">
+                    <connections>
+                        <action selector="swipeAction:" destination="BYZ-38-t0r" id="nGH-bV-HNv"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-303.19999999999999" y="-46.551724137931039"/>
         </scene>

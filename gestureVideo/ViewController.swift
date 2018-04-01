@@ -27,33 +27,44 @@ class ViewController: UIViewController{
         topConst.constant = -66
         bottomConst.constant = 60
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGesture))
+        doubleTapGesture.numberOfTapsRequired = 2
         let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
+        
         
         player = AVPlayer(url: url)
         player.currentItem?.addObserver(self, forKeyPath: "duration", options: [.new,.initial], context: nil)
         addTimeObserver()
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resize
-        
         videoView.layer.addSublayer(playerLayer)
         videoView.addGestureRecognizer(tapGesture)
+        videoView.addGestureRecognizer(doubleTapGesture)
+
+        
         
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         playerLayer.frame = videoView.frame
     }
+    
+    //탭
     @objc func tapGesture(){
+        print("single Tap!!")
         if topConst.constant < 0 && bottomConst.constant > 0
         {
             topConst.constant = 0
             bottomConst.constant = 0
+            
         }
         else{
             topConst.constant = -66
             bottomConst.constant = 60
         }
-        
+    }
+    @objc func doubleTapGesture(){
+        print("double Tap!!")
     }
 
     @IBAction func playAction(_ sender: UIButton) {
@@ -117,6 +128,35 @@ class ViewController: UIViewController{
             self?.timeSlider.value = Float(currentItem.currentTime().seconds)
             self?.currentLbl.text = self?.getTimeString(from: currentItem.currentTime())
         })
+    }
+    //가로모드 고정
+    override var shouldAutorotate: Bool{
+        return true
+    }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        return .landscapeLeft
+    }
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return .landscapeLeft
+    }
+    @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .began || sender.state == .changed
+        {
+            let translation = sender.translation(in: self.view).x
+            if translation > 0 {
+                print(player.currentTime())
+                 let currentTime = CMTimeGetSeconds(player.currentTime())
+                 let newTime = currentTime + 5.0
+                 let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+                player.seek(to: time)
+
+            }else{
+                let currentTime = CMTimeGetSeconds(player.currentTime())
+                let newTime = currentTime - 5.0
+                let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+                player.seek(to: time)
+            }
+        }
     }
 }
 
