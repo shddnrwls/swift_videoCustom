@@ -12,6 +12,8 @@
 		04A7688F206E4CEA00E0C474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A7688D206E4CEA00E0C474 /* Main.storyboard */; };
 		04A76891206E4CEA00E0C474 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A76890206E4CEA00E0C474 /* Assets.xcassets */; };
 		04A76894206E4CEA00E0C474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A76892206E4CEA00E0C474 /* LaunchScreen.storyboard */; };
+		04AD144E207F4B8000EC1963 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD144D207F4B8000EC1963 /* MainViewController.swift */; };
+		04AD1450207F4DBC00EC1963 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD144F207F4DBC00EC1963 /* VideoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		04A76890206E4CEA00E0C474 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04A76893206E4CEA00E0C474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04A76895206E4CEA00E0C474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04AD144D207F4B8000EC1963 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		04AD144F207F4DBC00EC1963 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				04A76889206E4CEA00E0C474 /* AppDelegate.swift */,
 				04A7688B206E4CEA00E0C474 /* ViewController.swift */,
+				04AD144D207F4B8000EC1963 /* MainViewController.swift */,
+				04AD144F207F4DBC00EC1963 /* VideoCollectionViewCell.swift */,
 				04A7688D206E4CEA00E0C474 /* Main.storyboard */,
 				04A76890206E4CEA00E0C474 /* Assets.xcassets */,
 				04A76892206E4CEA00E0C474 /* LaunchScreen.storyboard */,
@@ -136,7 +142,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04AD144E207F4B8000EC1963 /* MainViewController.swift in Sources */,
 				04A7688C206E4CEA00E0C474 /* ViewController.swift in Sources */,
+				04AD1450207F4DBC00EC1963 /* VideoCollectionViewCell.swift in Sources */,
 				04A7688A206E4CEA00E0C474 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,12 +283,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UPVNKF4986;
 				INFOPLIST_FILE = gestureVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.gestureVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -289,12 +299,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UPVNKF4986;
 				INFOPLIST_FILE = gestureVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.gestureVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

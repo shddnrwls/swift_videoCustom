@@ -22,12 +22,14 @@ class ViewController: UIViewController{
     var player : AVPlayer!
     var playerLayer : AVPlayerLayer!
     var isVideoPlayer = false
+    @IBOutlet var panGestrue: UIPanGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topConst.constant = -66
         bottomConst.constant = 60
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGesture))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureClick))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGestureClick))
         doubleTapGesture.numberOfTapsRequired = 2
         let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
         
@@ -50,7 +52,7 @@ class ViewController: UIViewController{
     }
     
     //탭
-    @objc func tapGesture(){
+    @objc func tapGestureClick(){
         print("single Tap!!")
         if topConst.constant < 0 && bottomConst.constant > 0
         {
@@ -63,7 +65,7 @@ class ViewController: UIViewController{
             bottomConst.constant = 60
         }
     }
-    @objc func doubleTapGesture(){
+    @objc func doubleTapGestureClick(){
         print("double Tap!!")
     }
 
@@ -143,18 +145,26 @@ class ViewController: UIViewController{
         if sender.state == .began || sender.state == .changed
         {
             let translation = sender.translation(in: self.view).x
+            let uptranslation = sender.translation(in: self.view).y
             if translation > 0 {
                 print(player.currentTime())
                  let currentTime = CMTimeGetSeconds(player.currentTime())
                  let newTime = currentTime + 5.0
                  let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+                
                 player.seek(to: time)
-
+                UIScreen.main.brightness += 0.1
             }else{
                 let currentTime = CMTimeGetSeconds(player.currentTime())
                 let newTime = currentTime - 5.0
                 let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
                 player.seek(to: time)
+                UIScreen.main.brightness -= 0.1
+            }
+            if uptranslation > 0{
+                
+            }else {
+                
             }
         }
     }
