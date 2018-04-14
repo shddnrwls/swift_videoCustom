@@ -30,8 +30,10 @@ class ViewController: UIViewController{
         bottomConst.constant = 60
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureClick))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGestureClick))
+        
         doubleTapGesture.numberOfTapsRequired = 2
         let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
+        
         
         
         player = AVPlayer(url: url)
@@ -44,11 +46,11 @@ class ViewController: UIViewController{
         videoView.addGestureRecognizer(doubleTapGesture)
 
         
-        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         playerLayer.frame = videoView.frame
+        
     }
     
     //탭
@@ -58,6 +60,7 @@ class ViewController: UIViewController{
         {
             topConst.constant = 0
             bottomConst.constant = 0
+            
             
         }
         else{
@@ -141,6 +144,9 @@ class ViewController: UIViewController{
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return .landscapeLeft
     }
+    
+    
+    
     @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began || sender.state == .changed
         {
@@ -151,20 +157,16 @@ class ViewController: UIViewController{
                  let currentTime = CMTimeGetSeconds(player.currentTime())
                  let newTime = currentTime + 5.0
                  let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
-                
                 player.seek(to: time)
                 UIScreen.main.brightness += 0.1
-            }else{
+            }
+
+            else{
                 let currentTime = CMTimeGetSeconds(player.currentTime())
                 let newTime = currentTime - 5.0
                 let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
                 player.seek(to: time)
                 UIScreen.main.brightness -= 0.1
-            }
-            if uptranslation > 0{
-                
-            }else {
-                
             }
         }
     }
