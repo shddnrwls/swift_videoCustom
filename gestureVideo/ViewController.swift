@@ -11,6 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController{
     
+    @IBOutlet var panVolum: UIView!
+    @IBOutlet var panBrightness: UIView!
     @IBOutlet var topView: UIView!
     @IBOutlet var bottomView: UIView!
     @IBOutlet var videoView: UIView!
@@ -22,20 +24,29 @@ class ViewController: UIViewController{
     var player : AVPlayer!
     var playerLayer : AVPlayerLayer!
     var isVideoPlayer = false
-    @IBOutlet var panGestrue: UIPanGestureRecognizer!
+//    @IBOutlet var panGestrue: UIPanGestureRecognizer!
     
     override func viewDidLoad() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
+        
         super.viewDidLoad()
         topConst.constant = -66
         bottomConst.constant = 60
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureClick))
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGestureClick))
-        
         doubleTapGesture.numberOfTapsRequired = 2
+        let pangesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
+        self.videoView.addGestureRecognizer(pangesture)
+        let brightnessGesture = UIPanGestureRecognizer(target: self, action: #selector(self.brightnessPanGesture(reonginizer:)))
+        self.panBrightness.addGestureRecognizer(brightnessGesture)
+        let volumGesture = UIPanGestureRecognizer(target: self, action: #selector(self.volumPanGesture(reonginizer:)))
+        self.panVolum.addGestureRecognizer(volumGesture)
         let url = URL(string: "https://s3.ap-northeast-2.amazonaws.com/project-sm/%EC%B2%AD%ED%95%98+(CHUNG+HA)+-+Roller+Coaster+MV.mp4")!
-        
-        
-        
         player = AVPlayer(url: url)
         player.currentItem?.addObserver(self, forKeyPath: "duration", options: [.new,.initial], context: nil)
         addTimeObserver()
@@ -46,11 +57,70 @@ class ViewController: UIViewController{
         videoView.addGestureRecognizer(doubleTapGesture)
 
         
+        
     }
+    @objc func volumPanGesture(reonginizer: UIPanGestureRecognizer) {
+        let tranlation = reonginizer.translation(in: self.view).y
+        if tranlation > 0 {
+            print(player.volume)
+            let volum = player.volume
+            let newVolum = volum + 0.1
+            player.volume = newVolum
+            
+        }
+        else {
+            let volum = player.volume
+            let newVolum = volum - 0.1
+            player.volume = newVolum
+            
+        }
+        
+    }
+    @objc func brightnessPanGesture(reonginizer: UIPanGestureRecognizer) {
+        let tranlation = reonginizer.translation(in: self.view).y
+        if tranlation > 0 {
+            print(UIScreen.main.brightness)
+            let brightness = UIScreen.main.brightness
+            let newBrightness = brightness + CGFloat(0.01)
+            UIScreen.main.brightness = newBrightness
+            
+        }
+        else {
+            print(UIScreen.main.brightness)
+            UIScreen.main.brightness -= 0.01
+            
+        }
+        
+    }
+    @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+//        var touchLocation = recognizer.location(in: self.view)
+//        self.videoView.center = touchLocation
+        print(recognizer.translation(in: self.view))
+        let tranlation = recognizer.translation(in: self.view).x
+        if tranlation > 0 {
+            print(player.currentTime())
+            let currentTime = CMTimeGetSeconds(player.currentTime())
+            
+            let newTime = currentTime + 5.0
+            let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+            
+            player.seek(to: time)
+            
+        }else{
+            print("swipe rignt")
+            let currentTime = CMTimeGetSeconds(player.currentTime())
+            let newTime = currentTime - 5.0
+            let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+            player.seek(to: time)
+            
+
+        }
+
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         playerLayer.frame = videoView.frame
-        
     }
     
     //탭
@@ -60,7 +130,6 @@ class ViewController: UIViewController{
         {
             topConst.constant = 0
             bottomConst.constant = 0
-            
             
         }
         else{
@@ -144,31 +213,43 @@ class ViewController: UIViewController{
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return .landscapeLeft
     }
+//    @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
+//        if sender.state == .began || sender.state == .changed
+//        {
+//            let translation = sender.translation(in: self.view).x
+//            let uptranslation = sender.translation(in: self.view).y
+//            if translation > 0 {
+//                print(player.currentTime())
+//                 let currentTime = CMTimeGetSeconds(player.currentTime())
+//                 let newTime = currentTime + 5.0
+//                 let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+//
+//                player.seek(to: time)
+//                UIScreen.main.brightness += 0.1
+//            }
+//            else if translation < 0{
+//                print("swipe rignt")
+//                let currentTime = CMTimeGetSeconds(player.currentTime())
+//                let newTime = currentTime - 5.0
+//                let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
+//                player.seek(to: time)
+//                UIScreen.main.brightness -= 0.1
+//            }
+//            if uptranslation > 0{
+//
+//
+//            }else {
+//
+//            }
+//        }
+//    }
+}
+extension ViewController{
+//    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+//        var touchLocation = recognizer.location(in: self.view)
+//        self.videoView.center = touchLocation
+//        print(recognizer.translation(in: self.view))
+//    }
     
-    
-    
-    @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .began || sender.state == .changed
-        {
-            let translation = sender.translation(in: self.view).x
-            let uptranslation = sender.translation(in: self.view).y
-            if translation > 0 {
-                print(player.currentTime())
-                 let currentTime = CMTimeGetSeconds(player.currentTime())
-                 let newTime = currentTime + 5.0
-                 let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
-                player.seek(to: time)
-                UIScreen.main.brightness += 0.1
-            }
-
-            else{
-                let currentTime = CMTimeGetSeconds(player.currentTime())
-                let newTime = currentTime - 5.0
-                let time: CMTime = CMTimeMake(Int64(newTime*1000), 1000)
-                player.seek(to: time)
-                UIScreen.main.brightness -= 0.1
-            }
-        }
-    }
 }
 
